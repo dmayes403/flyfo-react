@@ -4,7 +4,7 @@ import useSWRMutation from 'swr/mutation'
 import { useForm } from "react-hook-form";
 import signUp from '../firebase/auth/signup';
 
-interface UserRegister {
+export interface UserRegister {
   firstName: string;
   lastName: string;
   email: string;
@@ -13,14 +13,14 @@ interface UserRegister {
 
 export function Register({ setUserType }: { setUserType: (val: undefined) => void }) {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<UserRegister>();
-  const { trigger, isMutating } = useSWRMutation(process.env.NEXT_PUBLIC_API_URL + '/signup', sendPostRequest)
+  // const { trigger, isMutating } = useSWRMutation(process.env.NEXT_PUBLIC_API_URL + '/signup', sendPostRequest)
 
-  const handleClick = () => {
-    trigger({ name: 'Dave', email: 'david@gmail.com' })
-  }
+  // const handleClick = () => {
+  //   trigger({ name: 'Dave', email: 'david@gmail.com' })
+  // }
 
   const onSubmit = async (data: UserRegister) => {
-    const { result, error } = await signUp(data.email, data.password);
+    const { result, error } = await signUp(data);
   }
 
   return (
