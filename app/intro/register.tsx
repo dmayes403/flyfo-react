@@ -2,17 +2,25 @@ import { sendPostRequest } from '@/app/api/api'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 import useSWRMutation from 'swr/mutation'
 import { useForm } from "react-hook-form";
+import signUp from '../firebase/auth/signup';
 
-export function Login({ setUserType }: { setUserType: (val: undefined) => void }) {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+interface UserRegister {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+export function Register({ setUserType }: { setUserType: (val: undefined) => void }) {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<UserRegister>();
   const { trigger, isMutating } = useSWRMutation(process.env.NEXT_PUBLIC_API_URL + '/signup', sendPostRequest)
 
   const handleClick = () => {
     trigger({ name: 'Dave', email: 'david@gmail.com' })
   }
 
-  const onSubmit = (data: any) => {
-    console.log('form-data', data)
+  const onSubmit = async (data: UserRegister) => {
+    const { result, error } = await signUp(data.email, data.password);
   }
 
   return (

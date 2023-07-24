@@ -2,7 +2,7 @@
 import bg from '../assets/Greece_Intro.jpeg'
 import { CameraIcon, UserGroupIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react';
-import { Login } from './login';
+import { Register } from './register';
 
 const Button = ({ text, children, onClick }: { text: string, children: any, onClick: () => void }) => {
   return (
@@ -41,7 +41,7 @@ export default function Intro() {
               </div>
             </>
           ) : (
-            <Login setUserType={setUserType} />
+            <Register setUserType={setUserType} />
           )}
         </div>
       </div>

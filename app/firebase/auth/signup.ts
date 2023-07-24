@@ -6,6 +6,8 @@ const auth = getAuth(firebase_app);
 
 
 export default async function signUp(email: string, password: string) {
+    console.log('email', email)
+    console.log('password', password)
     let result = null,
         error = null;
     try {
