@@ -3,6 +3,7 @@ import bg from '../assets/Greece_Intro.jpeg'
 import { CameraIcon, UserGroupIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react';
 import { Register } from './register';
+import { useAuthContext } from '../context/AuthContext';
 
 const Button = ({ text, children, onClick }: { text: string, children: any, onClick: () => void }) => {
   return (
@@ -14,6 +15,8 @@ const Button = ({ text, children, onClick }: { text: string, children: any, onCl
 }
 
 export default function Intro() {
+  const { user } = useAuthContext()
+  console.log('user', user)
   const [userType, setUserType] = useState<'CLIENT' | 'PHOTOGRAPHER'>()
 
   const handleClientClick = () => {
