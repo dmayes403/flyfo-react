@@ -36,7 +36,7 @@ export function Register({ setUserType }: { setUserType: (val: undefined) => voi
         <input className="rounded p-2 mt-2 text-blue-300" placeholder='email' type="text" {...register('email')} />
         <input className="rounded p-2 mt-2 text-blue-300" placeholder='password' type="password" {...register('password')} />
 
-        <button type="submit" form="signup-form" className='shadow-md flex px-4 py-1 ring-1 ring-white rounded items-center mx-auto mt-2 bg-blue-300'>
+        <button type="submit" form="signup-form" className='shadow-md flex px-4 py-1 ring-1 ring-white rounded items-center mx-auto mt-2 bg-orange-300'>
           Continue
         </button>
       </form>

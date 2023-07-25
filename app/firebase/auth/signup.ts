@@ -12,7 +12,7 @@ export default async function signUp(data: UserRegister) {
         error = null;
     try {
         result = await createUserWithEmailAndPassword(auth, data.email, data.password);
-        await sendPostRequest(process.env.NEXT_PUBLIC_API_URL + '/signup', { args: { name: data.firstName, email: data.email } })
+        await sendPostRequest(process.env.NEXT_PUBLIC_API_URL + '/users/create', { args: { firstName: data.firstName, lastName: data.lastName, email: data.email } })
     } catch (e) {
         error = e;
     }
