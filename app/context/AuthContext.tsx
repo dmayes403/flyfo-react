@@ -6,6 +6,7 @@ import {
   User,
 } from 'firebase/auth';
 import firebase_app from '@/app/firebase/config';
+import { useRouter, usePathname } from 'next/navigation';
 
 export interface AuthContextType {
   user?: any
@@ -22,13 +23,20 @@ export const AuthContextProvider = ({
 }: { children: any }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = React.useState(true);
+  const router = useRouter()
+  const pathName = usePathname()
 
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log('user', user)
       if (user) {
         setUser(user);
       } else {
         setUser(null);
+
+        if (pathName !== '/intro') {
+          router.push('/intro')
+        }
       }
       setLoading(false);
     });

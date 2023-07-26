@@ -1,11 +1,12 @@
 'use client';
 import bg from '../assets/Greece_Intro.jpeg'
-import { CameraIcon, UserGroupIcon } from '@heroicons/react/24/solid'
+import { ArrowLeftIcon, CameraIcon, UserGroupIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react';
 import { Register } from './register';
 import { useAuthContext } from '../context/AuthContext';
 import { RegType } from '../enums/regType.enum';
 import { useRouter } from 'next/navigation';
+import SignIn from './signin';
 
 const Button = ({ text, children, onClick }: { text: string, children: any, onClick: () => void }) => {
   return (
@@ -18,8 +19,8 @@ const Button = ({ text, children, onClick }: { text: string, children: any, onCl
 
 export default function Intro() {
   const { user } = useAuthContext()
-  console.log('user', user)
   const [userType, setUserType] = useState<RegType>()
+  const [newUser, setNewUser] = useState(false)
   const router = useRouter()
 
   const handleClientClick = () => {
@@ -39,16 +40,22 @@ export default function Intro() {
     }}>
       <div className='h-screen translate-x-1/2 translate-y-1/2'>
         <div className='-translate-x-1/2 -translate-y-1/2 ring-1 ring-white rounded text-center p-12 w-max backdrop-blur-md'>
-          {!userType ? (
-            <>
-              <span className='text-3xl'>New To FlyFo?</span>
-              <div className='flex flex-col space-y-4 mt-4'>
-                <Button text="I need a photographer" onClick={handleClientClick}><UserGroupIcon /></Button>
-                <Button text="I am a photographer" onClick={handlePhotographerClick}><CameraIcon /></Button>
-              </div>
-            </>
-          ) : (
-            <Register setUserType={setUserType} userType={userType} />
+          {!newUser ? <SignIn setNewUser={setNewUser} /> : (
+            !userType ? (
+              <>
+                <button className='shadow-md flex px-4 py-1 ring-1 ring-white rounded items-center mx-auto mb-6' onClick={() => setNewUser(false)}>
+                  <span className='w-5'><ArrowLeftIcon /></span>
+                </button>
+
+                <span className='text-3xl'>New To FlyFo?</span>
+                <div className='flex flex-col space-y-4 mt-4'>
+                  <Button text="I need a photographer" onClick={handleClientClick}><UserGroupIcon /></Button>
+                  <Button text="I am a photographer" onClick={handlePhotographerClick}><CameraIcon /></Button>
+                </div>
+              </>
+            ) : (
+              <Register setUserType={setUserType} userType={userType} />
+            )
           )}
         </div>
       </div>
